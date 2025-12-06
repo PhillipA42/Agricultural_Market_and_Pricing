@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% block title %}Register{% endblock %}
+
+{% block content %}
+
+<div class="register-wrapper d-flex align-items-center justify-content-center">
+    <div class="register-card shadow-lg">
+
+        <h2 class="mb-4 text-center fw-bold text-success">Create Your Account</h2>
+        <p class="text-center text-muted mb-4">
+            Join AgriMarket and start buying or selling with ease.
+        </p>
+
+        <form method="POST" action="{% url 'register' %}">
+            {% csrf_token %}
+
+            <!-- Full Name -->
+            <div class="mb-3">
+                <label class="form-label">Full Name</label>
+                <input type="text" class="form-control" name="name" placeholder="Enter your full name" required>
+            </div>
+
+            <!-- Email -->
+            <div class="mb-3">
+                <label class="form-label">Email Address</label>
+                <input type="email" class="form-control" name="email" placeholder="Enter your email" required>
+            </div>
+
+            <!-- Phone -->
+            <div class="mb-3">
+                <label class="form-label">Phone Number</label>
+                <input type="text" class="form-control" name="phone" placeholder="e.g. 07xxxxxxxx" required>
+            </div>
+
+            <!-- Password -->
+            <div class="mb-3">
+                <label class="form-label">Password</label>
+                <input type="password" class="form-control" name="password1" placeholder="Create a password" required>
+            </div>
+
+            <!-- Confirm Password -->
+            <div class="mb-4">
+                <label class="form-label">Confirm Password</label>
+                <input type="password" class="form-control" name="password2" placeholder="Confirm your password" required>
+            </div>
+
+            <button type="submit" class="btn btn-success w-100 py-2 fw-bold">
+                Create Account
+            </button>
+        </form>
+
+        <p class="mt-4 text-center">
+            Already have an account?
+            <a href="{% url 'login' %}" class="fw-bold text-success">Login here</a>
+        </p>
+
+    </div>
+</div>
+
+{% endblock %}

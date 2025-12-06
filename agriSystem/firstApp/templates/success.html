@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block title %}Payment Successful{% endblock %}
+
+{% block content %}
+
+<div class="container d-flex justify-content-center align-items-center" style="min-height: 80vh;">
+  <div class="card shadow-lg p-5 text-center" style="max-width: 500px; border-radius: 20px;">
+
+    <div class="mb-4">
+      <h1 class="text-success fw-bold">✅ Payment Successful!</h1>
+    </div>
+
+    <p class="fs-5">
+      Your payment has been received successfully via <strong>M-Pesa</strong>.
+    </p>
+
+    <p class="text-muted">
+      Your order is now being processed and will be delivered soon.
+    </p>
+
+    <div class="mt-4 d-grid gap-2">
+      <a href="{% url 'home' %}" class="btn btn-success btn-lg">
+        Continue Shopping
+      </a>
+
+      <a href="{% url 'cart' %}" class="btn btn-outline-secondary btn-lg">
+        View Orders
+      </a>
+    </div>
+
+  </div>
+</div>
+
+{% endblock %}
