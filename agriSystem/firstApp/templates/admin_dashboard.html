@@ -1,0 +1,153 @@
+{% extends "base.html" %}
+
+{% block title %}Admin Dashboard{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+
+  <h1 class="fw-bold text-success mb-4">Admin Dashboard</h1>
+
+  <!-- STATS CARDS -->
+  <div class="row mb-5">
+
+    <div class="col-md-3">
+      <div class="card shadow-sm p-3 text-center">
+        <h6>Total Products</h6>
+        <h2>{{ total_products }}</h2>
+      </div>
+    </div>
+
+    <div class="col-md-3">
+      <div class="card shadow-sm p-3 text-center">
+        <h6>✅ Paid Orders</h6>
+        <h2 class="text-success">{{ total_paid_orders }}</h2>
+      </div>
+    </div>
+
+    <div class="col-md-3">
+      <div class="card shadow-sm p-3 text-center">
+        <h6>⏳ Pending Payments</h6>
+        <h2 class="text-danger">{{ total_pending_orders }}</h2>
+      </div>
+    </div>
+
+    <div class="col-md-3">
+      <div class="card shadow-sm p-3 text-center">
+        <h6>Total Revenue</h6>
+        <h2>Ksh {{ total_sales|floatformat:2 }}</h2>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- DELIVERY STATUS -->
+  <div class="row mb-4">
+    <div class="col-md-6">
+      <div class="alert alert-warning text-center fw-bold">
+        🚚 Products On Delivery: {{ on_delivery_products }}
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <div class="alert alert-secondary text-center fw-bold">
+        📦 Products Not On Delivery: {{ not_on_delivery_products }}
+      </div>
+    </div>
+  </div>
+
+  <!-- RODUCTS TABLE -->
+  <h3 class="fw-bold mb-3">All Products & Stock Value</h3>
+
+  <table class="table table-striped">
+    <thead class="table-success">
+      <tr>
+        <th>#</th>
+        <th>Name</th>
+        <th>Price (Ksh)</th>
+        <th>Stock</th>
+        <th>Total Value (Ksh)</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for product in products %}
+      <tr>
+        <td>{{ forloop.counter }}</td>
+        <td>{{ product.name }}</td>
+        <td>{{ product.price }}</td>
+        <td>{{ product.in_stock }}</td> 
+        <td class="fw-bold text-success">
+          Ksh {{ product.total_value|floatformat:2 }}
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <!-- GRAND TOTAL VALUE -->
+  <div class="alert alert-success fw-bold text-center mt-3">
+     Total Value of All Available Products:  
+    <span class="fs-4">Ksh {{ total_stock_value|floatformat:2 }}</span>
+  </div>
+
+  <!-- PAID ORDERS -->
+  <h3 class="fw-bold mt-5 mb-3 text-success">✅ Paid Orders</h3>
+
+  <table class="table table-bordered">
+    <thead class="table-success">
+      <tr>
+        <th>User</th>
+        <th>Product</th>
+        <th>Qty</th>
+        <th>Total</th>
+        <th>Date</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for order in paid_orders %}
+      <tr>
+        <td>{{ order.user.username }}</td>
+        <td>{{ order.product.name }}</td>
+        <td>{{ order.quantity }}</td>
+        <td>Ksh {{ order.total_price }}</td>
+        <td>{{ order.ordered_at }}</td>
+      </tr>
+      {% empty %}
+      <tr>
+        <td colspan="5" class="text-center">No paid orders yet</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <!--PENDING PAYMENTS -->
+  <h3 class="fw-bold mt-5 mb-3 text-danger">⏳ Pending Payments</h3>
+
+  <table class="table table-bordered">
+    <thead class="table-danger">
+      <tr>
+        <th>User</th>
+        <th>Product</th>
+        <th>Qty</th>
+        <th>Total</th>
+        <th>Date</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for order in pending_orders %}
+      <tr>
+        <td>{{ order.user.username }}</td>
+        <td>{{ order.product.name }}</td>
+        <td>{{ order.quantity }}</td>
+        <td>Ksh {{ order.total_price }}</td>
+        <td>{{ order.ordered_at }}</td>
+      </tr>
+      {% empty %}
+      <tr>
+        <td colspan="5" class="text-center">No pending payments </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+</div>
+{% endblock %}

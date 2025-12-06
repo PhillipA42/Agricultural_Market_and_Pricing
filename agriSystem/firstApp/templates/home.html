@@ -1,0 +1,149 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Home - AgriMarket{% endblock %}
+
+{% block content %}
+
+<!--HERO SECTION -->
+<header class="py-5 bg-white border-bottom">
+  <div class="container">
+    <div class="text-start">
+      <h1 class="display-4 fw-bolder text-success">Welcome to AgriMarket</h1>
+      <p class="lead text-dark mb-4">
+        Fresh from the Farm, Straight to You. Quality Produce and Agricultural Supplies.
+      </p>
+      <a href="#" class="btn btn-success btn-lg me-2">Explore Market</a>
+      <a href="#" class="btn btn-outline-success btn-lg">Get Started</a>
+    </div>
+  </div>
+</header>
+
+
+<!-- OFFER SECTION -->
+<section class="py-5">
+  <div class="container text-center">
+    <h2 class="fw-bold mb-3">What We Offer</h2>
+    <p class="lead text-dark mb-4">
+      Fresh produce, trusted farm inputs, real-time market prices, and a secure
+      digital platform connecting farmers and buyers.
+    </p>
+
+    <div class="row g-4">
+      <div class="col-md-4">
+        <div class="card shadow-sm p-4">
+          <h5>🌾 Fresh Produce</h5>
+          <p class="text-muted">Direct from verified farmers to your doorstep.</p>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="card shadow-sm p-4">
+          <h5>📊 Live Market Prices</h5>
+          <p class="text-muted">Stay updated with real-time agricultural prices.</p>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="card shadow-sm p-4">
+          <h5>🚚 Fast Delivery</h5>
+          <p class="text-muted">Reliable transportation across all regions.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURED PRODUCTS -->
+<section class="py-5 bg-light">
+  <div class="container">
+    <div class="text-center mb-4">
+      <h2 class="fw-bold">Featured Products</h2>
+      <p class="text-muted">Popular items from our trusted farmers & suppliers</p>
+    </div>
+
+    <div class="row g-4">
+      <!-- Product 1 -->
+      <div class="col-md-3">
+        <div class="card h-100 shadow-sm">
+          <img
+            src="{% static 'images/vegetables.jpg' %}"
+            class="card-img-top"
+            alt="Vegetables"
+            style="height: 260px; object-fit: cover"
+          />
+          <div class="card-body text-center">
+            <h5 class="card-title">Fresh Vegetables</h5>
+            <p class="text-success fw-bold">From Ksh. 300/kg</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Product 2 -->
+      <div class="col-md-3">
+        <div class="card h-100 shadow-sm">
+          <img
+            src="{% static 'images/variety.jpg' %}"
+            class="card-img-top"
+            alt="Fruits"
+            style="height: 260px; object-fit: cover"
+          />
+          <div class="card-body text-center">
+            <h5 class="card-title">Seasonal Fruits</h5>
+            <p class="text-success fw-bold">From Ksh. 500/kg</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Product 3 -->
+      <div class="col-md-3">
+        <div class="card h-100 shadow-sm">
+          <img
+            src="{% static 'images/cropseeds.jpg' %}"
+            class="card-img-top"
+            alt="Seeds"
+            style="height: 260px; object-fit: cover"
+          />
+          <div class="card-body text-center">
+            <h5 class="card-title">Quality Seeds</h5>
+            <p class="text-success fw-bold">From Ksh. 200/pack</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Product 4 -->
+      <div class="col-md-3">
+        <div class="card h-100 shadow-sm">
+          <img
+            src="{% static 'images/tools.jpg' %}"
+            class="card-img-top"
+            alt="Tools"
+            style="height: 260px; object-fit: cover"
+          />
+          <div class="card-body text-center">
+            <h5 class="card-title">Farm Tools</h5>
+            <p class="text-success fw-bold">From Ksh. 100</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PLATFORM STATISTICS -->
+<section class="py-5">
+  <div class="container text-center">
+    <div class="row">
+      <div class="col-md-4">
+        <h2 class="fw-bold">1,200+</h2>
+        <p>Happy Customers</p>
+      </div>
+      <div class="col-md-4">
+        <h2 class="fw-bold">50+</h2>
+        <p>Market Locations</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+{% endblock %}
