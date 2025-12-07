@@ -112,7 +112,7 @@
             <li class="nav-item">
               <form method="POST" action="{% url 'logout' %}" class="d-inline">
                 {% csrf_token %}
-                <button class="btn btn-outline-danger ms-2" type="submit">
+                <button class="btn btn-outline-light ms-2" type="submit">
                   Logout
                 </button>
               </form>
@@ -120,11 +120,6 @@
             {% else %}
             <li class="nav-item">
               <a class="nav-link text-white" href="{% url 'login' %}">Login</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link text-white" href="{% url 'register' %}">
-                Register
-              </a>
             </li>
             {% endif %}
           </ul>

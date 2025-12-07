@@ -1,50 +1,73 @@
 {% extends 'base.html' %}
+
 {% block title %}{{ product.name }}{% endblock %}
 
 {% block content %}
 <div class="container mt-5">
-    <div class="row g-4">
+  <div class="row g-4">
+    
+    <div class="col-md-6">
+      {% if product.image %}
+      <img
+        src="{{ product.image.url }}"
+        class="img-fluid rounded shadow-sm"
+        alt="{{ product.name }}"
+        style="height: 350px; width: 100%; object-fit: cover"
+      />
+      {% endif %}
+    </div>
 
-        <div class="col-md-6">
-            {% if product.image %}
-                <img src="{{ product.image.url }}" 
-                     class="img-fluid rounded shadow-sm" 
-                     alt="{{ product.name }}" 
-                     style="height: 350px; width: 100%; object-fit: cover;">
-            {% endif %}
-        </div>
+    <!-- Product Details -->
+    <div class="col-md-6 d-flex flex-column">
 
-        <!-- Product Details -->
-        <div class="col-md-6 d-flex flex-column">
-            <h2 class="mb-3">
-                {{ product.name }}
-                {% now "Y-m-d" as today %}
-                {% if product.expiry_date|date:"Y-m-d" < today %}
-                    <span class="badge bg-danger ms-2">EXPIRED</span>
-                {% endif %}
-            </h2>
+      {% now "Y-m-d" as today %}
 
-            <p class="mb-2">{{ product.description }}</p>
-            <p class="mb-1"><strong>Price:</strong> KES {{ product.price }}</p>
-            <p class="mb-1"><strong>Location:</strong> {{ product.location }}</p>
-            <p class="mb-1"><strong>Stock Available:</strong> {{ product.in_stock }}</p>
-            <p class="mb-1"><strong>Expiry Date:</strong> {{ product.expiry_date }}</p>
-            <p class="mb-1"><strong>Listed On:</strong> {{ product.created_at|date:"d M Y H:i" }}</p>
+      <h2 class="mb-3">
+        {{ product.name }}
+        {% if product.expiry_date|date:"Y-m-d" < today %}
+          <span class="badge bg-danger ms-2">EXPIRED</span>
+        {% endif %}
+      </h2>
 
-            <div class="mt-auto">
-                {% if product.expiry_date|date:"Y-m-d" < today %}
-                    <button class="btn btn-secondary btn-lg mt-3 w-100" disabled>
-                        <i class="bi-cart-fill me-1"></i> Expired
-                    </button>
-                {% else %}
-                    <a href="{% url 'add_to_cart' product.pk %}" class="btn btn-success btn-lg mt-3 w-100">
-                        <i class="bi-cart-fill me-1"></i> Add to Cart
-                    </a>
-                {% endif %}
-            </div>
-        </div>
+      <div class="mb-3">
+        <h5>Product Details</h5>
+        <p>{{ product.detailed_description|linebreaks }}</p>
+      </div>
+
+      <p class="mb-1"><strong>Price:</strong> KES {{ product.price }}</p>
+      <p class="mb-1"><strong>Location:</strong> {{ product.location }}</p>
+      <p class="mb-1"><strong>Stock Available:</strong> {{ product.in_stock }}</p>
+      <p class="mb-1"><strong>Expiry Date:</strong> {{ product.expiry_date }}</p>
+      <p class="mb-1">
+        <strong>Listed On:</strong> {{ product.created_at|date:"d M Y H:i" }}
+      </p>
+
+      <div class="mt-auto d-flex gap-2">
+        {% if product.expiry_date|date:"Y-m-d" < today %}
+          <button class="btn btn-secondary btn-lg w-100" disabled>
+            <i class="bi-cart-fill me-1"></i> Expired
+          </button>
+        {% else %}
+          <a
+            href="{% url 'add_to_cart' product.pk %}"
+            class="btn btn-success btn-lg w-100"
+          >
+            <i class="bi-cart-fill me-1"></i> Add to Cart
+          </a>
+        {% endif %}
+
+        <a
+          href="https://wa.me/254727057650?text=Hello, I am interested in your product: {{ product.name }}"
+          target="_blank"
+          class="btn btn-success btn-lg d-flex align-items-center justify-content-center"
+          style="width: 60px"
+        >
+          <i class="bi bi-whatsapp"></i>
+        </a>
+      </div>
 
     </div>
+  </div>
 </div>
 
 {% endblock %}

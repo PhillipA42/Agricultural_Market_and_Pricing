@@ -46,14 +46,24 @@
                         </span>
                     </p>
 
-                    <div class="mt-auto">
-                        <a href="{% url 'product_detail' product.pk %}" class="btn btn-primary mb-1 w-100 btn-sm">View</a>
+                    <div class="mt-auto d-flex gap-1">
+                        <a href="{% url 'product_detail' product.pk %}" 
+                           class="btn btn-primary btn-sm w-100">View</a>
 
                         {% if product.expiry_date|date:"Y-m-d" < today %}
-                            <button class="btn btn-secondary w-100 btn-sm" disabled>Expired</button>
+                            <button class="btn btn-secondary btn-sm w-100" disabled>Expired</button>
                         {% else %}
-                            <a href="{% url 'add_to_cart' product.pk %}" class="btn btn-success w-100 btn-sm">Add to Cart</a>
+                            <a href="{% url 'add_to_cart' product.pk %}" 
+                               class="btn btn-success btn-sm w-100">Add</a>
                         {% endif %}
+
+                       
+                        <a href="https://wa.me/254727057650?text=Hello, I am interested in your product: {{ product.name }}"
+                           target="_blank"
+                           class="btn btn-success btn-sm d-flex align-items-center justify-content-center"
+                           style="width: 42px;">
+                            <i class="bi bi-whatsapp"></i>
+                        </a>
                     </div>
 
                 </div>
