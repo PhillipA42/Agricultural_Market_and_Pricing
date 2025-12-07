@@ -3,55 +3,98 @@
 {% block title %}Home - AgriMarket{% endblock %}
 
 {% block content %}
+<section class="py-5">
 
-<!--HERO SECTION -->
-<header class="py-5 bg-white border-bottom">
-  <div class="container">
-    <div class="text-start">
-      <h1 class="display-4 fw-bolder text-success">Welcome to AgriMarket</h1>
-      <p class="lead text-dark mb-4">
+  <div class="container position-relative hero-container rounded overflow-hidden">
+
+    <div id="carouselExampleSlidesOnly"
+         class="carousel slide carousel-fade position-absolute top-0 start-0 w-100 h-100"
+         data-bs-ride="carousel">
+
+      <div class="carousel-inner h-100">
+
+        <div class="carousel-item active h-100">
+          <img src="{% static 'images/maize.jpg' %}"
+               class="d-block w-100 h-100 object-fit-cover"
+               alt="Maize">
+        </div>
+
+        <div class="carousel-item h-100">
+          <img src="{% static 'images/vegetables.jpg' %}"
+               class="d-block w-100 h-100 object-fit-cover"
+               alt="Vegetables">
+        </div>
+
+        <div class="carousel-item h-100">
+          <img src="{% static 'images/berries.jpg' %}"
+               class="d-block w-100 h-100 object-fit-cover"
+               alt="Farm">
+        </div>
+
+        <div class="carousel-item h-100">
+          <img src="{% static 'images/delivery.jpg' %}"
+               class="d-block w-100 h-100 object-fit-cover"
+               alt="Farm">
+        </div>
+
+        <div class="carousel-item h-100">
+          <img src="{% static 'images/store.jpg' %}"
+               class="d-block w-100 h-100 object-fit-cover"
+               alt="Farm">
+        </div>
+
+
+
+      </div>
+    </div>
+
+    <div class="hero-overlay position-absolute top-0 start-0 w-100 h-100"></div>
+
+
+    <div class="position-relative text-white text-center py-5" style="z-index: 2;">
+      
+      <h1 class="display-5 fw-bolder">Welcome to AgriMarket</h1>
+      <p class="lead mb-4">
         Fresh from the Farm, Straight to You. Quality Produce and Agricultural Supplies.
       </p>
-      <a href="#" class="btn btn-success btn-lg me-2">Explore Market</a>
-      <a href="#" class="btn btn-outline-success btn-lg">Get Started</a>
-    </div>
-  </div>
-</header>
 
+      <a href="{% url 'products' %}" class="btn btn-success btn-lg me-2">
+        Explore Market
+      </a>
+      <a href="{% url 'register' %}" class="btn btn-outline-light btn-lg">
+        Get Started
+      </a>
 
-<!-- OFFER SECTION -->
-<section class="py-5">
-  <div class="container text-center">
-    <h2 class="fw-bold mb-3">What We Offer</h2>
-    <p class="lead text-dark mb-4">
-      Fresh produce, trusted farm inputs, real-time market prices, and a secure
-      digital platform connecting farmers and buyers.
-    </p>
+      <div class="row g-4 mt-5">
 
-    <div class="row g-4">
-      <div class="col-md-4">
-        <div class="card shadow-sm p-4">
-          <h5>🌾 Fresh Produce</h5>
-          <p class="text-muted">Direct from verified farmers to your doorstep.</p>
+        <div class="col-md-4">
+          <div class="card shadow-sm p-4 bg-white text-dark">
+            <h5>🌾 Fresh Produce</h5>
+            <p class="text-muted">Direct from verified farmers to your doorstep.</p>
+          </div>
         </div>
-      </div>
 
-      <div class="col-md-4">
-        <div class="card shadow-sm p-4">
-          <h5>📊 Live Market Prices</h5>
-          <p class="text-muted">Stay updated with real-time agricultural prices.</p>
+        <div class="col-md-4">
+          <div class="card shadow-sm p-4 bg-white text-dark">
+            <h5>📊 Live Market Prices</h5>
+            <p class="text-muted">Stay updated with real-time agricultural prices.</p>
+          </div>
         </div>
-      </div>
 
-      <div class="col-md-4">
-        <div class="card shadow-sm p-4">
-          <h5>🚚 Fast Delivery</h5>
-          <p class="text-muted">Reliable transportation across all regions.</p>
+        <div class="col-md-4">
+          <div class="card shadow-sm p-4 bg-white text-dark">
+            <h5>🚚 Fast Delivery</h5>
+            <p class="text-muted">Reliable transportation across all regions.</p>
+          </div>
         </div>
+
       </div>
     </div>
+
   </div>
+
 </section>
+
 
 <!-- FEATURED PRODUCTS -->
 <section class="py-5 bg-light">

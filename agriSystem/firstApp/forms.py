@@ -6,10 +6,11 @@ class ProductForm(forms.ModelForm):
     
     class Meta:
         model = Product
-        fields = ['name', 'description', 'price', 'location', 'in_stock', 'expiry_date', 'image']
+        fields = ['name', 'description','detailed_description', 'price', 'location', 'in_stock', 'expiry_date', 'image']
         widgets = {
             'name': forms.TextInput(attrs={'class': 'form-control'}),
             'description': forms.Textarea(attrs={'class': 'form-control', 'rows': 3}),
+            'detailed_description': forms.Textarea(attrs={'class': 'form-control', 'rows': 6}),
             'price': forms.NumberInput(attrs={'class': 'form-control'}),
             'location': forms.TextInput(attrs={'class': 'form-control'}),
             'in_stock': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
