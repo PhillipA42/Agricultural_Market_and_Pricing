@@ -155,7 +155,7 @@ h6, .h6 {
 .table th,
 .table td {
   color: #000
-}
+} 
 
 /* REGISTER PAGE STYLING */
 .register-wrapper {
@@ -221,6 +221,59 @@ h6, .h6 {
 .login-card a:hover {
     text-decoration: underline;
 }
+
+
+/* PRODUCTS DISPLAY STYLING*/
+.product-card {
+    transition: transform 0.3s, box-shadow 0.3s;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.product-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+}
+
+.card-title {
+    font-weight: 600;
+}
+
+.card-text {
+    color: #555;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+    border-color: #0056b3;
+}
+
+.btn-success:hover {
+    background-color: #198754;
+    border-color: #198754;
+}
+
+h2 {
+    font-weight: 600;
+}
+
+p {
+    font-size: 0.95rem;
+}
+
+.btn-success:hover {
+    background-color: #198754;
+    border-color: #198754;
+}
+
+.btn-secondary:hover {
+    background-color: #6c757d;
+    border-color: #6c757d;
+}
+
+
+
+
 
 
 p {
@@ -1782,6 +1835,7 @@ progress {
   .gy-xxl-5 {
     --bs-gutter-y: 3rem;
   }
+
 }
 .table {
   --bs-table-color: var(--bs-body-color);

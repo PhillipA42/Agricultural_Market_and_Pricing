@@ -3,29 +3,48 @@
 
 {% block content %}
 <div class="container mt-5">
-    <div class="row">
-        <!-- Product Image -->
+    <div class="row g-4">
+
         <div class="col-md-6">
             {% if product.image %}
-                <img src="{{ product.image.url }}" class="img-fluid rounded" alt="{{ product.name }}">
+                <img src="{{ product.image.url }}" 
+                     class="img-fluid rounded shadow-sm" 
+                     alt="{{ product.name }}" 
+                     style="height: 350px; width: 100%; object-fit: cover;">
             {% endif %}
         </div>
 
         <!-- Product Details -->
-        <div class="col-md-6">
-            <h2>{{ product.name }}</h2>
-            <p>{{ product.description }}</p>
-            <p><strong>Price:</strong> KES {{ product.price }}</p>
-            <p><strong>Location:</strong> {{ product.location }}</p>
-            <p><strong>Stock Available:</strong> {{ product.in_stock }}</p>
-            <p><strong>Expiry Date:</strong> {{ product.expiry_date }}</p>
-            <p><strong>Listed On:</strong> {{ product.created_at|date:"d M Y H:i" }}</p>
+        <div class="col-md-6 d-flex flex-column">
+            <h2 class="mb-3">
+                {{ product.name }}
+                {% now "Y-m-d" as today %}
+                {% if product.expiry_date|date:"Y-m-d" < today %}
+                    <span class="badge bg-danger ms-2">EXPIRED</span>
+                {% endif %}
+            </h2>
 
-            <!-- Add to Cart Button -->
-            <a href="{% url 'add_to_cart' product.pk %}" class="btn btn-success btn-lg mt-3">
-                <i class="bi-cart-fill me-1"></i> Add to Cart
-            </a>
+            <p class="mb-2">{{ product.description }}</p>
+            <p class="mb-1"><strong>Price:</strong> KES {{ product.price }}</p>
+            <p class="mb-1"><strong>Location:</strong> {{ product.location }}</p>
+            <p class="mb-1"><strong>Stock Available:</strong> {{ product.in_stock }}</p>
+            <p class="mb-1"><strong>Expiry Date:</strong> {{ product.expiry_date }}</p>
+            <p class="mb-1"><strong>Listed On:</strong> {{ product.created_at|date:"d M Y H:i" }}</p>
+
+            <div class="mt-auto">
+                {% if product.expiry_date|date:"Y-m-d" < today %}
+                    <button class="btn btn-secondary btn-lg mt-3 w-100" disabled>
+                        <i class="bi-cart-fill me-1"></i> Expired
+                    </button>
+                {% else %}
+                    <a href="{% url 'add_to_cart' product.pk %}" class="btn btn-success btn-lg mt-3 w-100">
+                        <i class="bi-cart-fill me-1"></i> Add to Cart
+                    </a>
+                {% endif %}
+            </div>
         </div>
+
     </div>
 </div>
+
 {% endblock %}

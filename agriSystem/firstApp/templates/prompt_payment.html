@@ -1,33 +1,26 @@
-{% extends 'base.html' %}
+{% extends "base.html" %}
+{% block title %}Mpesa Payment{% endblock %}
 
 {% block content %}
+<div class="container mt-5" style="max-width: 500px;">
+    <h3 class="text-center text-success mb-4">Complete Your Payment</h3>
 
-<div class="container d-flex justify-content-center align-items-center" style="min-height: 80vh;">
-  <div class="card shadow-lg p-4" style="max-width: 420px; width: 100%; border-radius: 15px;">
+    <!-- DISPLAY AMOUNT (READ-ONLY) -->
+    <div class="alert alert-info text-center fw-bold">
+        Amount to Pay: KES {{ total }}
+    </div>
 
-    <h3 class="text-center mb-4 fw-bold text-success">M-Pesa Payment</h3>
+    <form method="POST">
+        {% csrf_token %}
 
-    <form action="" method="POST">
-      {% csrf_token %}
+        <div class="mb-3">
+            <label class="form-label">Phone Number</label>
+            {{ form.phone_number }}
+        </div>
 
-      <div class="mb-3">
-        <label for="phonenumber" class="form-label fw-semibold">Enter Phone Number</label>
-        <input type="tel" class="form-control form-control-lg" id="phoneNumber" name="phoneNumber" placeholder="07XXXXXXXX">
-        <div id="phoneHelp" class="form-text">Enter a valid M-Pesa number.</div>
-      </div>
-
-      <div class="mb-3">
-        <label for="amount" class="form-label fw-semibold">Amount</label>
-        <input type="text" class="form-control form-control-lg" id="amount" name="amount" placeholder="Enter amount">
-      </div>
-
-      <button type="submit" class="btn btn-success w-100 py-2 fw-bold">
-        Proceed to Pay
-      </button>
-
+        <button type="submit" class="btn btn-success w-100">
+            Pay Now
+        </button>
     </form>
-
-  </div>
 </div>
-
 {% endblock %}

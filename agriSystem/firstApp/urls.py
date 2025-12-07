@@ -5,7 +5,6 @@ from firstApp import views
 
 
 urlpatterns = [
-    path('index/', views.index, name='index'),
     path('products/', views.productsList, name='products'),
     path('home/', views.home, name='home'),
     path('about/', views.about, name='about'),
@@ -17,12 +16,12 @@ urlpatterns = [
     path('cart/add/<int:pk>/', views.addToCart, name='add_to_cart'),
     path('cart/remove/<int:pk>/', views.removeFromCart, name='remove_from_cart'),
     path('cart/clear/', views.clearCart, name='clear_cart'),
-    path('checkout/', views.checkout, name='checkout'),
     path('register/', views.registerUser, name='register'),
     path('login/', views.loginUser, name='login'),
     path('logout/', views.logoutUser, name='logout'),
     path('admin-dashboard/', views.adminDashboard, name='admin_dashboard'),
     path('payment/', views.mpesaPayment, name='mpesa_payment'),
-
+    path('success-payment/', views.successPayment, name='success'),
+    path("create-order/", views.createOrderFromCart, name="create_order_from_cart"),
 
 ] 

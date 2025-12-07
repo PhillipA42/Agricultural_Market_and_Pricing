@@ -5,7 +5,7 @@ from django.contrib import messages
 from .cart import Cart
 from django.contrib.auth.decorators import login_required
 from .models import Product, Profile, Order
-from .forms import ProductForm
+from .forms import ProductForm, MpesaPaymentForm
 from django.db.models import Sum
 from decimal import Decimal
 from django.contrib.admin.views.decorators import staff_member_required
@@ -13,17 +13,6 @@ from django.http import HttpResponse
 from django_daraja.mpesa.core import MpesaClient
 
 # Create your views here.
-
-def index(request):
-    cl = MpesaClient()
-    # Use a Safaricom phone number that you have access to, for you to be able to view the prompt.
-    phone_number = '0791074671'
-    amount = 1
-    account_reference = 'AgriMarket Kisii'
-    transaction_desc = 'Product Purchase'
-    callback_url = 'https://api.darajambili.com/express-payment'
-    response = cl.stk_push(phone_number, amount, account_reference, transaction_desc, callback_url)
-    return HttpResponse(response)
 
 def home(request):
     return render(request, 'home.html')
@@ -109,13 +98,29 @@ def clearCart(request):
     return redirect('cart')
 
 @login_required
-def checkout(request):
+def createOrderFromCart(request):
     cart = Cart(request)
 
+    if not cart.items:
+        messages.warning(request, "Your cart is empty.")
+        return redirect("cart")
+
+    for product_id, item in cart.items.items():
+        product = Product.objects.get(id=product_id)
+
+        Order.objects.create(
+            user=request.user,
+            product=product,
+            quantity=item["quantity"],
+            total_price=Decimal(item["price"]) * int(item["quantity"]),
+            is_paid=False
+        )
+
     cart.clear()
-    messages.success(request, 'Payment successful! Thank you for your purchase.')
-    return redirect('products')
-# REGISTER USER
+    messages.success(request, "Order placed successfully. Proceed to payment.")
+    return redirect("mpesa_payment")
+
+# User registration
 def registerUser(request):
     if request.method == 'POST':
         name = request.POST.get('name')
@@ -158,6 +163,7 @@ def registerUser(request):
         return redirect('home')
 
     return render(request, 'register.html')
+# User login
 def loginUser(request):
     if request.method == 'POST':
         email = request.POST.get('email')
@@ -244,18 +250,37 @@ def adminDashboard(request):
 
     return render(request, 'admin_dashboard.html', context)
 
+# Initiate payment
+@login_required
 def mpesaPayment(request):
-    if request.method == 'POST':
-        phoneNumber = request.POST.get('phoneNumber') 
-        amount = int(float(request.POST.get('amount')))
-        cl = MpesaClient()
-        phone_number = phoneNumber
-        amount = amount
-        account_reference = 'AgriMarket Kisii'
-        transaction_desc = 'Product Purchase'
-        callback_url = 'https://api.darajambili.com/express-payment'
-        response = cl.stk_push(phone_number, amount, account_reference, transaction_desc, callback_url)
+    unpaid_orders = Order.objects.filter(user=request.user, is_paid=False)
+    total_amount = unpaid_orders.aggregate(total=Sum("total_price"))["total"] or Decimal("0.00")
+
+    if total_amount <= 0:
+        messages.warning(request, "You have no unpaid orders.")
+        return redirect("cart")
+
+    if request.method == "POST":
+        form = MpesaPaymentForm(request.POST)
+        if form.is_valid():
+            phone_number = form.cleaned_data["phone_number"]
+
+            cl = MpesaClient()
+            cl.stk_push(
+                phone_number,
+                int(total_amount),
+                "AgriMarket Kisii",
+                "Product Purchase",
+                "https://api.darajambili.com/express-payment"
+            )
+
+            return redirect("success")
     else:
-        pass
-    context={}
-    return render(request, 'prompt_payment.html', context)
+        form = MpesaPaymentForm()
+
+    return render(request, "prompt_payment.html", {"form": form, "total": total_amount})
+
+
+def successPayment(request):
+    return render(request, "success.html")
+

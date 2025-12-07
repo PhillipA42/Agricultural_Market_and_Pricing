@@ -15,3 +15,14 @@ class ProductForm(forms.ModelForm):
             'in_stock': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
             'image': forms.ClearableFileInput(attrs={'class': 'form-control'}),
         }
+
+# secure mpesa payment
+
+class MpesaPaymentForm(forms.Form):
+    phone_number = forms.CharField(
+        max_length=12,
+        widget=forms.TextInput(attrs={
+            'class': 'form-control',
+            'placeholder': '2547XXXXXXXX'
+        })
+    )
