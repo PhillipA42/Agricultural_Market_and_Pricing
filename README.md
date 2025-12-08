@@ -681,3 +681,52 @@ class Cart:
         return sum(Decimal(item["price"]) * int(item["quantity"]) for item in self.cart.values())
 
 """
+
+"""
+# crfeate a file inside your app and name it context_processors.py
+# inside it, add this
+
+from .cart import Cart
+
+def cart(request):
+    return {"cart": Cart(request)}
+
+# This will enable for cart to count the number of products added
+
+# update your views.py under addToCart to this
+
+@login_required
+def addToCart(request, pk):
+    product = Product.objects.get( id=pk)
+    cart = Cart(request)
+    cart.add(product, quantity=1)
+    messages.success(request, f'{product.name} added to cart.')
+    return redirect('products')
+
+# inside your settings.py under TEMPLATES, update it to this
+
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [BASE_DIR / 'templates'],
+        'APP_DIRS': True,
+        'OPTIONS': {
+            'context_processors': [
+                'django.template.context_processors.request',
+                'django.contrib.auth.context_processors.auth',
+                'django.contrib.messages.context_processors.messages',
+
+                'firstApp.context_processors.cart',
+            ],
+        },
+    },
+]
+
+# Inside your cart.py add this section
+
+ @property
+    def get_total_quantity(self):
+        return sum(int(item["quantity"]) for item in self.cart.values())
+
+# Now this will enable the cart to update products
+"""
