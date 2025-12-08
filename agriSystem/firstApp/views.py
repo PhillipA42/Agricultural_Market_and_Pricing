@@ -9,7 +9,6 @@ from .forms import ProductForm, MpesaPaymentForm
 from django.db.models import Sum
 from decimal import Decimal
 from django.contrib.admin.views.decorators import staff_member_required
-from django.http import HttpResponse
 from django_daraja.mpesa.core import MpesaClient
 
 # Create your views here.
@@ -62,13 +61,13 @@ def updateProduct(request, pk):
 # DELETE PRODUCT
 @login_required
 def deleteProduct(request, pk):
-    product = Product.objects.get(Product, pk=pk, seller=request.user)
+    product = Product.objects.get(pk=pk, seller=request.user)
     if request.method == 'POST':
         product.delete()
         return redirect('products')
     return render(request, 'delete_product.html', {'product': product})
 
-
+# Add products to cart
 @login_required
 def addToCart(request, pk):
     product = Product.objects.get( id=pk)
@@ -77,6 +76,7 @@ def addToCart(request, pk):
     messages.success(request, f'{product.name} added to cart.')
     return redirect('products')
 
+# view rour cart
 @login_required
 def viewCart(request):
     cart = Cart(request)
