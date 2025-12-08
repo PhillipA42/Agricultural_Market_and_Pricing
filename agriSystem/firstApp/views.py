@@ -72,7 +72,7 @@ def deleteProduct(request, pk):
 def addToCart(request, pk):
     product = Product.objects.get( id=pk)
     cart = Cart(request)
-    cart.add(product)
+    cart.add(product, quantity=1)
     messages.success(request, f'{product.name} added to cart.')
     return redirect('products')
 
